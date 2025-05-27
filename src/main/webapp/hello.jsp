@@ -16,6 +16,8 @@
    현재시각은
    <%=LocalDateTime.now() %>
    입니다.  그렇지요 hello
+   
+   깃허브 연동
  </h2>
 </body>
 </html>
