@@ -12,37 +12,36 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/pcontrol")
 public class ProductController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    ProductService service;
-
+	private static final long serialVersionUID = 1L;
+	
+	
+	ProductService service;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ProductController() {
+        super();
         service = new ProductService();
+        // TODO Auto-generated constructor stub
     }
 
-    @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        String action = request.getParameter("action");
-        String view = "";
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// response.getWriter().append("Served at: pcontrol").append(request.getContextPath());
+		request.setAttribute("products", service.findAll());
+		getServletContext().getRequestDispatcher("/productlist.jsp").forward(request, response);
+	}
 
-        if (request.getParameter("action") == null) {
-            getServletContext().getRequestDispatcher("/pcontrol?action=list")
-                    .forward(request, response);
-        } else {
-            switch (action) {
-                case "list":
-                    view = list(request, response);
-                    break;
-                case "info":
-                    view = info(request, response);
-                    break;
-            }
-            getServletContext().getRequestDispatcher(view).forward(request, response);
-        }
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 }
